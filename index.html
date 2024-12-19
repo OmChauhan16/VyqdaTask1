@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editable Column with React</title>
+</head>
+
+<body>
+  <div id="root"></div>
+
+  <!-- React and ReactDOM scripts -->
+  <!-- <script src="https://unpkg.com/react@latest/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@latest/umd/react-dom.development.js" crossorigin></script> -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+  <script type="text/javascript">
+    const { useState } = React;
+    const { createRoot } = ReactDOM;
+
+    // Editable Column Component
+    function EditableColumn() {
+      // Initial static data in a single column (editable)
+      const initialData = [
+        { name: 'MONTH1' },
+        { name: 'Onboarding Call' },
+        { name: 'Google Search Console Access' },
+        { name: 'Google Analytics Access' },
+        { name: 'Website Access' },
+        { name: 'Technical Audit' },
+        { name: 'Anchor Text and Semantic Analysis' },
+        { name: 'Competitor Analysis' },
+        { name: 'Anchor Text/URL Mapping' },
+        { name: 'Google Data Studio Report + Local Reporting Suite' },
+        { name: 'Site Level Optimization' },
+        { name: 'On Page Optimization' },
+        { name: 'Content Creation' },
+        { name: 'Content Publishing' },
+        { name: 'Premium Press Release' },
+        { name: 'Authority Niche Placements' },
+        { name: 'Review Management' },
+        { name: 'Index Links' },
+        { name: 'Video Recap' },
+      ];
+
+      // State to store the data
+      const [data, setData] = useState(initialData);
+
+      // Handle changes in input
+      const handleChange = (index, value) => {
+        const updatedData = [...data];
+        updatedData[index].name = value;
+        setData(updatedData);
+      };
+
+      // Prepare data for API (if needed)
+      const handleSubmit = () => {
+        console.log('Data ready to be sent to API:', data);
+        // Here you can make a fetch/axios call to post the data to API
+      };
+
+      return React.createElement('div', null,
+        data.map((item, index) => React.createElement('div', { key: index },
+          React.createElement('input', {
+            type: 'text',
+            value: item.name,
+            onChange: (e) => handleChange(index, e.target.value),
+            style: { display: 'block', margin: '0px 0', padding: '5px', width: '400px', textAlign: 'center' }
+          })
+        )),
+        React.createElement('button', { onClick: handleSubmit }, 'Submit Data')
+      );
+    }
+
+    // Using createRoot instead of ReactDOM.render
+    const rootElement = document.getElementById('root');
+    const root = createRoot(rootElement);
+    root.render(React.createElement(EditableColumn));
+  </script>
+</body>
+
+</html>
